@@ -1,7 +1,8 @@
 import { MdOutlineArrowForward } from "react-icons/md";
+import { Link } from "react-router-dom";
 
 const ServiceCard = ({ service }) => {
-    const { title, img, price, } = service;
+    const { _id, title, img, price, } = service;
     return (
         <div className="card bg-base-100 w-96 border-2 rounded-lg mt-8">
             <div>
@@ -16,7 +17,11 @@ const ServiceCard = ({ service }) => {
                 <h2 className="card-title font-bold flex-grow">{title}</h2>
                 <div className="mt-2 flex justify-between">
                     <p className="font-semibold text-[#FF3811]">Price: ${price}</p>
-                    <button className="text-2xl text-[#FF3811]"><MdOutlineArrowForward /></button>
+                    <Link to={`/book/${_id}`}>
+                        <button className="text-2xl text-[#FF3811]">
+                            <MdOutlineArrowForward />
+                        </button>
+                    </Link>
                 </div>
             </div>
         </div>
