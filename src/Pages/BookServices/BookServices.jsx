@@ -4,7 +4,7 @@ import { AuthContext } from "../../Providers/AuthProvider";
 
 const BookServices = () => {
     const service = useLoaderData();
-    const { title, _id, price: servicePrice } = service;
+    const { title, _id, price: servicePrice, img } = service;
     const { user } = useContext(AuthContext);
     if (!service) {
         return <div>Loading...</div>;
@@ -18,14 +18,28 @@ const BookServices = () => {
         const price = form.price.value;
         const email = form.email.value;
 
-        const order = {
-            name,
+        const booking = {
+            customerName: name,
             email,
+            img,
             date,
             price,
-            service: _id,
+            service: title,
+            service_id: _id,
         };
-        console.log("Order:", JSON.stringify(order, null, 2));
+        console.log(booking);
+
+        fetch('http://localhost:5000/bookings', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(booking)
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+            })
     };
 
     return (
